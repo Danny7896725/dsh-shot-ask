@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Screenshot ask endpoint",
+    "description": "Local model endpoint for the Screenshot Ask desktop window: it receives a screenshot and a question from the app and streams an answer from your current DSH model. Everything stays on the loopback address.",
+    "detail": "docs/DETAIL.md"
+  }
+}

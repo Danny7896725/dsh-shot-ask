@@ -1,0 +1,67 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: 编译浮窗与检查插件
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 校验插件语法
+        shell: pwsh
+        run: node --input-type=module -e "await import('./plugin/index.js'); console.log('plugin ok')"
+
+      - name: 校验包清单
+        shell: pwsh
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('plugin/package.json','utf8')); console.log('manifest ok')"
+
+      - name: 编译 exe
+        shell: pwsh
+        run: .\build.ps1
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: ShotAsk-windows-x64
+          path: |
+            dist/截图提问助手.exe
+            dist/启动截图提问助手.bat
+          if-no-files-found: error
+
+  release:
+    name: 发布 Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 编译并打包
+        shell: pwsh
+        run: |
+          .\build.ps1
+          New-Item -ItemType Directory -Force -Path package | Out-Null
+          Copy-Item dist/截图提问助手.exe package/
+          Copy-Item dist/启动截图提问助手.bat package/
+          Copy-Item README.md package/
+          Copy-Item LICENSE package/
+          Compress-Archive -Path package/* -DestinationPath "ShotAsk-${{ github.ref_name }}-windows.zip"
+
+      - name: 创建 Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ShotAsk-*-windows.zip
+          generate_release_notes: true

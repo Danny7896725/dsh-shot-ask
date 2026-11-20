@@ -1,0 +1,14 @@
+* text=auto
+
+*.cs    text diff=csharp
+*.js    text
+*.json  text
+*.yml   text
+*.md    text
+*.ps1   text eol=crlf
+*.bat   text eol=crlf
+
+*.exe   binary
+*.ico   binary
+*.png   binary
+*.zip   binary

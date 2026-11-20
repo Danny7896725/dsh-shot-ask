@@ -1,0 +1,73 @@
+name: Bug 报告
+description: 程序崩溃、截图异常、回答报错等
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！**请不要上传包含个人隐私的截图**（桌面、姓名、课件内容），可以打码或用文字描述。
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 发生了什么
+      description: 期望的行为 vs 实际的行为
+      placeholder: 按 Ctrl+Alt+Q 后没有出现选区，但托盘图标还在……
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 打开 DSH，确认 127.0.0.1:3080 可访问
+        2. 运行 dist\截图提问助手.exe
+        3. 按 Ctrl+Alt+Q
+        4. ……
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 助手版本
+      description: 见 CHANGELOG 或 Release 页面
+      placeholder: v0.1.0
+    validations:
+      required: true
+  - type: input
+    id: dsh-version
+    attributes:
+      label: DSH 版本与模型
+      placeholder: DSH 0.2.2 / deepseek-flash
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: 系统
+      options:
+        - Windows 11
+        - Windows 10
+        - 其他（请在描述里说明）
+    validations:
+      required: true
+  - type: dropdown
+    id: dpi
+    attributes:
+      label: 显示缩放
+      options:
+        - 100%
+        - 125%
+        - 150%
+        - 175% / 200%
+        - 不确定
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: 附加信息
+      description: exe 同目录下的 startup.log（如果有），或任何报错文字
+      render: text
+    validations:
+      required: false

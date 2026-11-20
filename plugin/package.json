@@ -1,0 +1,20 @@
+{
+  "name": "dsh-shot-ask",
+  "version": "0.1.0",
+  "private": true,
+  "description": "为「截图提问助手」桌面浮窗提供本地模型接口：截图 + 问题 → 流式中文回答。",
+  "type": "module",
+  "keywords": ["dsh", "dsh-plugin", "screenshot", "ppt", "deepseek"],
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": ["index.js", "cordis.patch.yml", "locale/*.json", "docs", "icon.svg"],
+  "engines": {
+    "dsh": ">=0.2.0-0"
+  },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" }
+  }
+}

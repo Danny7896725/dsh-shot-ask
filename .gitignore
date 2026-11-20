@@ -1,0 +1,21 @@
+# 构建产物
+dist/
+*.exe
+*.zip
+
+# 本地配置与日志
+config.json
+startup.log
+*.log
+
+# 编辑器 / 系统
+.vs/
+.idea/
+*.user
+*.suo
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 依赖
+node_modules/
